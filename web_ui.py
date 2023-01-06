@@ -15,7 +15,7 @@ df = pandas.read_csv("topics.csv")
 csv = convert_df(df)
 
 # Page header
-st.subheader("Note Pad Generator V1.0")
+st.subheader("Note Pad Generator V1.1")
 
 # Intro text below the header
 st.write("Hello and welcome to the Note Pad Generator, "
