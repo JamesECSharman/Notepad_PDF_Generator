@@ -35,10 +35,12 @@ st.write("Pages: This will denote the number of pages for each topic.")
 upload_csv = st.file_uploader("Upload CSV File")
 # Upload function for Image
 upload_image = st.file_uploader("Upload Image for Branding", type="png")
-# If image is uploaded, read the image name for the image conversion functions
-if upload_image:
-    image_name = st.write("Filename: ", upload_image.name)
-    print(image_name)
+title_position = st.selectbox('Where do you want your Page Titles?', ('Left', 'Center'))
+if title_position:
+    if title_position == "Left":
+        title_alignment = "L"
+    if title_position == "Center":
+        title_alignment = "C"
 
 # Generate PDF Button
 button = st.button("Generate PDF")
@@ -50,10 +52,10 @@ if button:
     img = upload_image
     # Triggers convert_image function to create background image
     convert_image(img)
-    # Triggers conver_image function to set logo in top right hand corner
+    # Triggers cover_image function to set logo in top right hand corner
     convert_image_2(img)
     # Triggers generate_pdf function from csv and image_name from if upload_image script
-    note_pad = generate_pdf(csv, image_name)
+    note_pad = generate_pdf(csv, align=title_alignment)
     # Generates a download button which ensures the correct pdf output
     with open("output.pdf", "rb") as pdf_file:
         PDFbyte = pdf_file.read()
