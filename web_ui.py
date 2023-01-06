@@ -32,7 +32,7 @@ st.write("Pages: This will denote the number of pages for each topic.")
 
 
 # Upload function for CSV file
-upload_csv = st.file_uploader("Upload CSV File")
+upload_csv = st.file_uploader("Upload CSV File", type="csv")
 # Upload function for Image
 upload_image = st.file_uploader("Upload Image for Branding", type="png")
 # Select box to allow users to select Topics alignment - left or centered
