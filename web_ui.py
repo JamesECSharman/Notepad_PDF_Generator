@@ -4,7 +4,9 @@ from image_convertor import convert_image, convert_image_2, hex_to_rgb
 from pdf_generator import generate_pdf
 
 st.set_page_config(
-    layout='wide'
+    layout='wide',
+    page_title="PDF NotePad Generator",
+    page_icon=":spiral_note_pad"
 )
 
 # convert CSV into a DF to be able to generate CSV file for download
@@ -18,7 +20,7 @@ df = pandas.read_csv("topics.csv")
 csv = convert_df(df)
 
 # Page header
-st.title("Note Pad Generator V1.1", )
+st.title("Note Pad Generator V1.11", )
 
 # Intro text below the header
 st.write("Hello and welcome to the Note Pad Generator, "
@@ -72,25 +74,26 @@ with col2:
     text_colour = hex_to_rgb(colour_picker)
     # Converts tuple into 3 definable int to input into the PDF generator
     (red, green, blue) = text_colour
+    # Generate PDF Button
+    button = st.button("Generate PDF")
+    # If button is pressed action list
+    if button:
+        # Set's CSV to uploaded csv
+        csv = upload_csv
+        # Sets img to Uploaded image
+        img = upload_image
+        # Triggers convert_image function to create background image
+        convert_image(img)
+        # Triggers cover_image function to set logo in top right hand corner
+        convert_image_2(img)
+        # Triggers generate_pdf function from csv
+        note_pad = generate_pdf(csv, align=title_alignment, r=red, g=green, b=blue)
+        # Generates a download button which ensures the correct pdf output
+        with open("output.pdf", "rb") as pdf_file:
+            PDFbyte = pdf_file.read()
+            download = st.download_button(label="Download PDF Notepad",
+                                          data=PDFbyte,
+                                          file_name="test.pdf",
+                                          mime='application/octet-stream')
 
-# Generate PDF Button
-button = st.button("Generate PDF")
-# If button is pressed action list
-if button:
-    # Set's CSV to uploaded csv
-    csv = upload_csv
-    # Sets img to Uploaded image
-    img = upload_image
-    # Triggers convert_image function to create background image
-    convert_image(img)
-    # Triggers cover_image function to set logo in top right hand corner
-    convert_image_2(img)
-    # Triggers generate_pdf function from csv
-    note_pad = generate_pdf(csv, align=title_alignment, r=red, g=green, b=blue)
-    # Generates a download button which ensures the correct pdf output
-    with open("output.pdf", "rb") as pdf_file:
-        PDFbyte = pdf_file.read()
-        download = st.download_button(label="Download PDF Notepad",
-                    data=PDFbyte,
-                    file_name="test.pdf",
-                    mime='application/octet-stream')
+
