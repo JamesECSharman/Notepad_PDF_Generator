@@ -4,13 +4,13 @@ from image_convertor import convert_image, convert_image_2
 from pdf_generator import generate_pdf
 
 
-# convert CSV into a DF to be able to generate the PDF
+# convert CSV into a DF to be able to generate CSV file for download
 def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     return df.to_csv().encode('utf-8')
 
 
-# Part of the generate PDF file function
+# Part of the generate CSV file for download function
 df = pandas.read_csv("topics.csv")
 csv = convert_df(df)
 
