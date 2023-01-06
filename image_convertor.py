@@ -31,6 +31,7 @@ def convert_image_2(image):
     img.save("./preview.png", "PNG")
 
 
+# Convert from hex to RGB using PIL Image.Color. returns the text colour as a tuple to be converted
 def hex_to_rgb(hex):
     text_colour = ImageColor.getrgb(hex)
     return text_colour

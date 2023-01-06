@@ -46,6 +46,7 @@ if title_position == "Center":
 colour_picker = st.color_picker("What Colour Text Would You Like?", value=None)
 # Convert image HEX to RGB by defined function
 text_colour = hex_to_rgb(colour_picker)
+# Converts tuple into 3 definable int to input into the PDF generator
 (red, green, blue) = text_colour
 
 # Generate PDF Button
