@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageColor
 
 
 # Function to create a black and white, semi-transparent image for the background
@@ -29,3 +29,8 @@ def convert_image_2(image):
     img.paste(im2, img)
     # Saves the image as a png with a set naming convention
     img.save("./preview.png", "PNG")
+
+
+def hex_to_rgb(hex):
+    text_colour = ImageColor.getrgb(hex)
+    return text_colour

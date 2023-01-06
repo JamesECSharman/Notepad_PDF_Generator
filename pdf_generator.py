@@ -3,7 +3,7 @@ import pandas as pd
 
 
 # Function to create the PDF
-def generate_pdf(csv, align):
+def generate_pdf(csv, align, r, g, b):
     # Create PDF Object
     pdf = FPDF(orientation="P", unit="mm", format="A4")
     pdf.set_auto_page_break(auto=False, margin=0)
@@ -16,7 +16,7 @@ def generate_pdf(csv, align):
 
         # Set the header
         pdf.set_font(family="Times", style="B", size=24)
-        pdf.set_text_color(100, 100, 100)
+        pdf.set_text_color(r, g, b)
         pdf.cell(w=0, h=12, txt=row["Topic"], align=align,
              ln=1)
         pdf.image('preview.png', x=188, y=4, w=12, h=12, type='', link='')

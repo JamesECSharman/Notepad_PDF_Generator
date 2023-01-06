@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas
-from image_convertor import convert_image, convert_image_2
+from image_convertor import convert_image, convert_image_2, hex_to_rgb
 from pdf_generator import generate_pdf
 
 
@@ -35,12 +35,18 @@ st.write("Pages: This will denote the number of pages for each topic.")
 upload_csv = st.file_uploader("Upload CSV File")
 # Upload function for Image
 upload_image = st.file_uploader("Upload Image for Branding", type="png")
+# Select box to allow users to select Topics alignment - left or centered
 title_position = st.selectbox('Where do you want your Page Titles?', ('Left', 'Center'))
-if title_position:
-    if title_position == "Left":
-        title_alignment = "L"
-    if title_position == "Center":
-        title_alignment = "C"
+# If title position is set to left or center, then the title_alignment value is updated for PDF generation
+if title_position == "Left":
+    title_alignment = "L"
+if title_position == "Center":
+    title_alignment = "C"
+# Image Colour picker for user to define title colour
+colour_picker = st.color_picker("What Colour Text Would You Like?", value=None)
+# Convert image HEX to RGB by defined function
+text_colour = hex_to_rgb(colour_picker)
+(red, green, blue) = text_colour
 
 # Generate PDF Button
 button = st.button("Generate PDF")
@@ -54,8 +60,8 @@ if button:
     convert_image(img)
     # Triggers cover_image function to set logo in top right hand corner
     convert_image_2(img)
-    # Triggers generate_pdf function from csv and image_name from if upload_image script
-    note_pad = generate_pdf(csv, align=title_alignment)
+    # Triggers generate_pdf function from csv
+    note_pad = generate_pdf(csv, align=title_alignment, r=red, g=green, b=blue)
     # Generates a download button which ensures the correct pdf output
     with open("output.pdf", "rb") as pdf_file:
         PDFbyte = pdf_file.read()
